@@ -7,7 +7,6 @@
   <title> monitoring system</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
- 
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -190,15 +189,7 @@
 
 
         </div>
-
-
-
       </div>
-
-
-
-
-
   </main>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -212,23 +203,27 @@
     let realspeed = document.getElementById("real")
     let stream = null;
  
-
-     const deviceId=localStorage.getItem("deviceId");
-     if(!deviceId)
+    const socket=io();
+     const devices=localStorage.getItem("deviceId");
+     if(!devices)
      {
         let devicename=prompt("enter your device name ");
           devicename=devicename.replaceAll(" ","").trim();
-         devicename=devicename+"_"+crypto.randomUUID();
-         localStorage.setItem("deviceId",devicename);
+         id=devicename+"_"+crypto.randomUUID();
+         let device={
+          "id":id,
+          "name":devicename
+         }
+         localStorage.setItem("deviceId",JSON.stringify(device));
+         socket.emit("device",device);
+     }else{
+      socket.emit("device",devices);
      }
 
 
-    const socket=io();
+    
 
-    socket.emit("deviceId",deviceId);
-
-
-
+  
 
     document.getElementById("startrecord").addEventListener("click", async () => {
 

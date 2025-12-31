@@ -1,9 +1,9 @@
 const {Server}=require("socket.io");
+const { addnewdevice } = require("../Controller/device");
 
 function initSocket(server)
 {
 
-    
 
     const io=new Server(server,{
         cors:'*'
@@ -12,11 +12,12 @@ function initSocket(server)
     io.on("connection",(Socket)=>{
            
         console.log("connection socket");
-       
+        
        //device id
-        Socket.on("deviceId",(id)=>{
+        Socket.on("device",(device)=>{
            
-             
+            addnewdevice(JSON.parse(device))
+             console.log(device)
             
         })
 
