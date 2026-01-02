@@ -2,7 +2,8 @@ const express=require("express")
 const path=require('path')
 const app=express();
 const cors=require("cors");
-const authRouter=require("../routes/AuthRoute")
+const authRouter=require("../routes/AuthRoute");
+const AdminRoute = require("../routes/AdminRoute");
 app.use(cors())
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"..","public")));
@@ -10,7 +11,11 @@ app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname,"..","public","screen.html"))
 })
 
-
+// app.use("",(req,res)=>{
+//     req.query.
+// })
 app.use("/api/userAuth",authRouter);
-
+app.use("/api/admin",AdminRoute);
 module.exports=app;
+
+

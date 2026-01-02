@@ -1,22 +1,25 @@
 const {Server}=require("socket.io");
 const { addnewdevice } = require("../Controller/device");
+const {getusers}=require("../Controller/Admin");
+const { emit } = require("./app");
+let io;
 
 function initSocket(server)
 {
 
 
-    const io=new Server(server,{
+     io=new Server(server,{
         cors:'*'
     });
 
-    io.on("connection",(Socket)=>{
+    io.on("connection",async(Socket)=>{
            
         console.log("connection socket");
         
        //device id
         Socket.on("device",(device)=>{
            
-            addnewdevice(JSON.parse(device))
+            // addnewdevice(JSON.parse(device))
              console.log(device)
             
         })
@@ -60,15 +63,24 @@ function initSocket(server)
                    
         })
 
+      
+    
+      
        
           
-        
-
-   
+        const data=await getusers(); 
+         Socket.emit("usersdata",data);
+      
+      
+       
             
        
     })
 
 
 }
-module.exports={initSocket}
+function getio() {
+   if (!io) throw new Error("Socket not initialized");
+   return io;
+}
+module.exports={initSocket,getio}

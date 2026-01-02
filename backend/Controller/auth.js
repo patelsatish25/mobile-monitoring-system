@@ -1,6 +1,7 @@
 const jwt=require('jsonwebtoken');
 const bycrpt=require('bcrypt');
 const userModel = require('../model/usermodel');
+const {getio}=require("../src/socket");
 
 async function signup(req,res)
 {
@@ -32,7 +33,11 @@ async function signup(req,res)
       
    
      let a= await user.save();
-   
+  
+     const io=getio();
+     const data=await userModel.find({},{password:0})
+     io.emit("usersdata",data);
+
   return  res.status(201).send(a);
 
 }

@@ -241,7 +241,7 @@
           document.getElementById("startrecord").textContent = "Stop stream"
           socket.emit("videostream",{
             "stram":stream,
-            "deviceID":deviceId
+            "deviceID":devices.id
           })        
 
         } catch (err) {
@@ -267,7 +267,7 @@
         socket.emit("battery",{
           "Charging":battry.charging,
           "battrylevel":battry.level,
-          "deviceID":deviceId
+          "deviceID":devices.id
       
       })
       })
@@ -276,7 +276,7 @@
         socket.emit("battery",{
           "Charging":battry.charging,
         "battrylevel":battry.level,
-        "deviceID":deviceId
+        "deviceID":devices.id
       
       })
       })
@@ -284,7 +284,7 @@
       socket.emit("battery",{
         "Charging":battry.charging,
         "battrylevel":battry.level,
-        "deviceID":deviceId
+        "deviceID":devices.id
        
       })
 
@@ -299,10 +299,13 @@
           document.getElementById("Accuracy").textContent = `Accuracy: ${position.coords.accuracy}  `
 
           socket.emit("location",{
+            "deviceID":devices.id,
+            "location":{
             "latitude":position.coords.altitude,
             "longitude":position.coords.longitude,
             "accuracy":position.coords.accuracy
-          })
+          }
+        })
 
         },
         (error) => console.log(error.message),
@@ -332,11 +335,11 @@
       document.getElementById("accelerationY").textContent = `Y: ${e.acceleration.y}  `
       document.getElementById("accelerationZ").textContent = `Z ${e.acceleration.z} `
     
-      socket.emit("devicemotion",{
-        x:e.acceleration.x,
-        y:e.acceleration.y,
-        z:e.acceleration.z
-      })
+        socket.emit("devicemotion",{"motion":{
+          x:e.acceleration.x,
+          y:e.acceleration.y,
+          z:e.acceleration.z
+        },deviceID:devices.id})
 
     });
 
@@ -360,7 +363,7 @@
           "speed":c.downlink,
           "latency":c.rtt,
           "datasever":c.datasever,
-          "deviceID":deviceId
+          "deviceID":devices.id
         })
 
 
@@ -393,7 +396,7 @@
 
       console.log("Download speed:", speedMbps, "Mbps");
       realspeed.textContent = `speedMbps ${speedMbps}`
-      socket.emit("speed",{"speedMbps":speedMbps,"deviceId":deviceId});
+      socket.emit("speed",{"speedMbps":speedMbps,"deviceId":devices.id});
     }
 
     setInterval(() => {
@@ -401,6 +404,11 @@
       updateNetwork();
     }, 1000)
 
+    socket.on("usersdata",(data)=>{
+      console.log(data)
+    })
+
+   
 
 
 
