@@ -19,14 +19,17 @@ function initSocket(server)
        //device id
         Socket.on("device",(device)=>{
            
-            // addnewdevice(JSON.parse(device))
+         addnewdevice(device)
+
              console.log(device)
             
         })
 
          //location
         Socket.on("location",(data)=>{
-
+             
+            console.log(data)
+            
         })
      
         //video stream
@@ -37,18 +40,18 @@ function initSocket(server)
 
         //battery
         Socket.on("battery",(data)=>{
-             
+             console.log(data)
         })
 
 
         //deviceorientation
         Socket.on("deviceorientation",(data)=>{
-
+               console.log(data)
         })
 
         //devicemotion
         Socket.on("devicemotion",(data)=>{
-
+               
         })
 
 
@@ -70,10 +73,7 @@ function initSocket(server)
           
         const data=await getusers(); 
          Socket.emit("usersdata",data);
-      
-      
-       
-            
+    
        
     })
 

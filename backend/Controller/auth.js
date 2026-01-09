@@ -6,12 +6,14 @@ const {getio}=require("../src/socket");
 async function signup(req,res)
 {
 
+      
+
          const {username,password,email}=req.body;
       
 
          if(!username || !password || !email)
          {
-           return res.status(400).json({ error: "Missing required fields 13" });
+           return res.status(400).json({ error: "Missing required fields " });
          }
   
       let veryfie= await userModel.findOne({username});
@@ -38,7 +40,7 @@ async function signup(req,res)
      const data=await userModel.find({},{password:0})
      io.emit("usersdata",data);
 
-  return  res.status(201).send(a);
+  return  res.status(201).json({msg:"signupd succussfully"});
 
 }
 async function login(req,res)
@@ -52,13 +54,13 @@ async function login(req,res)
    const user = await userModel.findOne({ username });
    
    if (!user) {
-     return res.status(401).json({ error: "username and password invalid" });
+     return res.status(401).json({ error: "username invalid" });
    }
    
    const isPasswordValid = await bycrpt.compare(password, user.password);
    
    if (!isPasswordValid) {
-     return res.status(401).json({ error: "username and password invalid" });
+     return res.status(401).json({ error: "password invalid" });
    }
    
    const token = jwt.sign(
@@ -68,10 +70,6 @@ async function login(req,res)
    );
    
    return res.json({ token });
-
-  
-   
     
 }
-
 module.exports={signup,login};

@@ -6,7 +6,7 @@ async function addnewdevice({id,name})
 
     try {
      
-//check device is all ready store or not
+
         
      let checkid=await devicemodel.findOne({deviceId:id});
  

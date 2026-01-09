@@ -6,5 +6,5 @@ const dbconnect=require("./config/dbconnection");
 initSocket(server)
 dbconnect();
 server.listen(5000,"0.0.0.0",()=>{
-    console.log("server is redy http://localhost:5000")
+    console.log("server is ready http://localhost:5000")
 })

@@ -1,5 +1,5 @@
 const userModel = require('../model/usermodel');
-const {getio}=require("../src/socket");
+
 
 async function getusers()
 {
@@ -17,8 +17,8 @@ async function setpermission(req,res)
 {
     const id=req.params.id;
     
-    let result=await userModel.updateOne({_id:id},{$set:{"status":req.body.status}});
-    res.send(result);
+    await userModel.updateOne({_id:id},{$set:{"status":req.body.status}});
+    res.status(200).json({msg:"permssion set"});
 }
 
  async function searchuser(req,res)
@@ -30,11 +30,7 @@ async function setpermission(req,res)
         query.status=req.query.status;
     }
    
-  
-
-
-    const users= await userModel.find(query).skip((page-1)*3).limit(2);
-
+    const users= await userModel.find(query).skip((page-1)*3).limit(3);
     res.status(200).json({data:users,page:page});
     
 }
