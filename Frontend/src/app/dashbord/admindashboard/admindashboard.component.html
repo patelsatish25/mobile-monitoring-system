@@ -1,0 +1,57 @@
+
+<style>
+    .main{
+        background-color: rgb(17, 17, 17);
+        padding: 50px;
+        color:azure;
+        height: 100vh;
+    }
+    .contener{
+        height: 100%;
+        width: 100%;
+        background-color: rgb(40, 40, 40);
+        border: 1px solid red;
+        border-radius:10px;
+    } 
+</style>
+<main class="main">
+      <div class="contener">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> username</th>
+                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+              </ng-container>
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> email</th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> state </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+          
+      </div>
+</main>
