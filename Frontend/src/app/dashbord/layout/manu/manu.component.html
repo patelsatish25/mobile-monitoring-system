@@ -1,0 +1,30 @@
+<mat-toolbar>
+    <span style="flex: 1 1 auto;">devicess</span>
+    <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+        Menu
+      </button>
+      
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        
+        <button  *ngIf="isAdmin" mat-menu-item routerLink="/admindashboard">
+            <mat-icon>dashboard</mat-icon>
+            <span>{{dashboardname}}</span>
+          </button>
+
+          <button  *ngIf="isadminurl()" mat-menu-item routerLink="/devicess">
+            <mat-icon>dashboard</mat-icon>
+            <span>devices</span>
+          </button>
+          
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+      
+  </mat-toolbar>

@@ -30,17 +30,21 @@ async function signup(req,res)
          password:encrptpassword,
          email:email,
          type:"user",
-         status:"pending"
+         status:"pending",
+         date:Date.now()
         })
       
    
      let a= await user.save();
   
      const io=getio();
-     const data=await userModel.find({},{password:0})
+    //  const data=await userModel.find({},{password:0})
+    const users=await userModel.find({},{password:0}).sort({ date: -1 }).limit(5);
+    const total=await userModel.find({}).countDocuments({});
+    const data={users:users,total:total};
      io.emit("usersdata",data);
 
-  return  res.status(201).json({msg:"signupd succussfully"});
+    return  res.status(201).json({msg:"signupd succussfully"});
 
 }
 async function login(req,res)
@@ -64,7 +68,7 @@ async function login(req,res)
    }
    
    const token = jwt.sign(
-     { id: user._id, type:user.type },
+     { id: user._id, type:user.type,state:user.status},
      "qwerty@123",
      { expiresIn: "1h" }
    );

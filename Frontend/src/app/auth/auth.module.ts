@@ -4,6 +4,9 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 @NgModule({
@@ -14,12 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
-  ,
-  exports:[
-    LoginComponent,
-    SignupComponent
+    ReactiveFormsModule,
+    AuthRoutingModule
   ]
 })
 export class AuthModule { }

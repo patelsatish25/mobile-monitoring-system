@@ -1,6 +1,7 @@
 const http=require('http');
-const app=require("./src/app");
+
 const { initSocket } = require('./src/socket');
+const app=require("./src/app");
 const server=http.createServer(app);
 const dbconnect=require("./config/dbconnection");
 initSocket(server)

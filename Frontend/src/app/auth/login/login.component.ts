@@ -1,6 +1,8 @@
 import { HttpResponse } from '@angular/common/http';
+import { Token } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BackendapiService } from 'src/app/services/backendapi.service';
 @Component({
   selector: 'app-login',
@@ -9,16 +11,18 @@ import { BackendapiService } from 'src/app/services/backendapi.service';
 })
 export class LoginComponent {
 
-  constructor(private api:BackendapiService){}
+  constructor(private api:BackendapiService,private router:Router){}
   alertmsg="";
   hide=false;
    HandleSubmitLogin(form:NgForm)
    {
-        // console.log(form.value);
+    
        
         this.api.login(form.value).subscribe({
           next:(res:HttpResponse<any>)=>{
-               console.log(res)
+             
+             localStorage.setItem('token',res.body.token)
+            this.router.navigate(['/devicess']);
           },
           error:(error)=>{
             console.log("error:",error)

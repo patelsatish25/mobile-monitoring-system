@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Frontend';
+  
+  ngOnInit()
+  {
+     window.addEventListener('storage',(event)=>{
+      if (event.key === 'token') {
+        window.location.href = '/';
+      }
+     })
+  }
 }

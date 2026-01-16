@@ -2,27 +2,38 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { DashbordModule } from './dashbord/dashbord.module';
-import {HttpClientModule} from '@angular/common/http';
+
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from './material/material.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthtokenInterceptor } from './authtoken.interceptor';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
-    DashbordModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+
+    
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass:AuthtokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+
+}

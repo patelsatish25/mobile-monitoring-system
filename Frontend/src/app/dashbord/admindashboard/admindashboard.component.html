@@ -4,25 +4,108 @@
         background-color: rgb(17, 17, 17);
         padding: 50px;
         color:azure;
-        height: 100vh;
+        height: 90vh;
     }
     .contener{
         height: 100%;
         width: 100%;
         background-color: rgb(40, 40, 40);
-        border: 1px solid red;
+       
         border-radius:10px;
     } 
+    .header
+    {
+      width:100%;
+      height:90px;
+      background-color: blueviolet;
+    }
+    section {
+  display: flex;
+  align-items: center;
+}
+
+
+.example-label {
+  font-size: 14px;
+  margin: 0 16px 0 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.action-btn {
+  margin-right: 10px;
+}
+
+/* Approved */
+.btn-approved {
+  background-color: #084b00 !important;
+  color: #fff !important;
+}
+
+.btn-approve{
+  background-color: #19cf04 !important;
+  color: #fff !important;
+
+}
+/* Rejected */
+.btn-rejected {
+  background-color: #7c0800 !important;
+  color: #fff !important;
+}
+.btn-reject{
+  background-color:#ff2717 !important;
+  color: #fff !important;
+  
+}
+
 </style>
+
+ <app-menu></app-menu>
+  
+
 <main class="main">
+ 
+     
       <div class="contener">
+        <mat-toolbar>
+                   <span  style="flex: 1 1 auto;" >users</span>
+                   <div style="padding-top:15px;">
+          <mat-form-field appearance="outline">
+            <mat-label>Filter by State</mat-label>
+            
+            <mat-select  (selectionChange)="filterByState($event.value)">
+              <mat-option value="All">All</mat-option>  
+              <mat-option  value="approved">APPROVED</mat-option>
+              <mat-option value="pending" >PENDING</mat-option>
+              <mat-option value="rejected" >REJECTED</mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+        
+
+        </mat-toolbar>
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource">
           
               <!-- Position Column -->
-              <ng-container matColumnDef="position">
+              <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                <td mat-cell *matCellDef="let row; let i = index">
+                  {{ i + 1 }}
+                </td>
               </ng-container>
           
               <!-- Name Column -->
@@ -42,14 +125,51 @@
                 <th mat-header-cell *matHeaderCellDef> state </th>
                 <td mat-cell *matCellDef="let element"> {{element.status}} </td>
               </ng-container>
-          
+       
+
+              <ng-container matColumnDef="button">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+              
+                <td mat-cell *matCellDef="let element">
+
+                  <button
+                    mat-raised-button
+                    class="action-btn"
+                    [ngClass]="element.status === 'approved'?'btn-approved':'btn-approve'"
+                    [disabled]="element.status === 'approved'"
+                    (click)="setstate(element._id, 'approved')"
+                    style="width: 100px;"
+                    >
+                    
+                    {{ element.status === 'approved' ? 'Approved' : 'Approve ' }}
+                  </button>
+                
+                  <button
+                    mat-raised-button
+                    class="action-btn"
+                    style="width: 100px;"
+                    [ngClass]="element.status === 'rejected'?'btn-rejected':'btn-reject'"
+                    [disabled]="element.status === 'rejected'"
+                    (click)="setstate(element._id, 'rejected')">
+                    {{ element.status === 'rejected' ? 'Rejected' : 'Reject  ' }}
+                  </button>
+                
+                </td>
+                
+                
+              </ng-container>
+              
+              
+              
+           -->
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
           
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                           showFirstLastButtons
-                           aria-label="Select page of periodic elements">
+            <mat-paginator    [length]="totalRecords"  [pageSize]="pageSize" [pageIndex]="pageIndex"
+                         
+                           [length]="totalRecords"
+                           aria-label="Select page of periodic elements" (page)="onPageChange($event)">
             </mat-paginator>
           </div>
           

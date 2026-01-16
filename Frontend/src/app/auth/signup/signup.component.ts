@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator, usernamevalidation } from './input.validators';
 import { BackendapiService } from 'src/app/services/backendapi.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,7 @@ export class SignupComponent {
 
   alertMessage=""
   alertbox=false;
-  constructor(private api:BackendapiService){}
+  constructor(private api:BackendapiService,private router:Router){}
 
      form=new FormGroup({
       username:new FormControl("",[Validators.required,
@@ -126,7 +127,7 @@ export class SignupComponent {
         console.log(data)
        this.api.signup(data).subscribe({
         next:(res)=>{
-          console.log(res)
+          this.router.navigate(["devicess"])
         }
         ,
         error:(error)=>{

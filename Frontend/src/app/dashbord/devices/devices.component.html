@@ -1,0 +1,158 @@
+
+<style>
+    .main{
+        background-color: rgb(17, 17, 17);
+        padding: 30px;
+        color:azure;
+        height: 90vh;
+        padding-top:10px;
+        
+    }
+    .contener{
+        height: 90%;
+        width: 100%;
+        background-color: rgb(40, 40, 40);
+       
+        border-radius:10px;
+        padding:20px;
+        
+    } 
+    .header
+    {
+      width:100%;
+      height:90px;
+      background-color: blueviolet;
+    }
+    section {
+  display: flex;
+  align-items: center;
+}
+
+
+.example-label {
+  font-size: 14px;
+  margin: 0 16px 0 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+.device-card {
+  padding: 16px;
+  border-radius: 8px;
+  background: #2b2b2b;
+  color: white;
+  transition: 0.3s;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  cursor:pointer;
+}
+
+.active-border {
+  border: 2px solid #00ff00; /* GREEN */
+  box-shadow: 0 0 10px #00b800;
+}
+.active-border:hover{
+  box-shadow: 0 0 14px #00ff00;
+}
+.inactive-border {
+  border: 2px solid #ff0000; /* RED */
+  box-shadow: 0 0 10px #c70000;
+}
+.inactive-border:hover{
+ 
+  box-shadow: 0 0 14px #f60000; 
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.alertdialog{
+   
+  
+   justify-content: center;
+   display: flex;
+   height: 60px;
+   padding-bottom:0px;
+  }
+  .alertmsg{
+    background-color: red;
+    width:600px;
+    text-align: center;
+      
+    border-radius: 10px;
+    padding:5px;
+
+  }
+
+</style>
+
+  <app-menu  [dashboardname]="dashboardname" [isAdmin]="isAdmin" routerlink="routerlink"></app-menu>
+  
+
+<main class="main">
+ 
+  <div class="alertdialog">
+    
+
+    <h1 class="alertmsg"  *ngIf="hide"  style="color: white; padding-bottom: 0px;">{{alertmsg}}</h1>
+  </div>
+      <div class="contener">
+
+        <div class="grid">
+
+          <div
+            class="device-card"
+           
+            (click)="opendevice(d.deviceId)"
+            *ngFor="let d of apiDevices"
+            [ngClass]="{
+              'active-border': isActive(d.deviceId),
+              'inactive-border': !isActive(d.deviceId)
+            }"
+            
+
+          >
+        
+            <h3>{{ d.name }}</h3>
+        
+            <p>Status:
+              <span *ngIf="isActive(d.deviceId)" style="color:lime">
+                ACTIVE
+              </span>
+              <span *ngIf="!isActive(d.deviceId)" style="color:red">
+                INACTIVE
+              </span>
+            </p>
+        
+          </div>
+        
+        </div>
+        
+        
+        
+       
+        
+        
+        
+        
+      </div>
+</main>
+

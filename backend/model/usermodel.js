@@ -8,7 +8,8 @@ const usershema = mongodb.Schema({
         default: "pending"
       },
     type:String,
-    email: { type: String, require: true }
+    email: { type: String, require: true },
+    date:{type:Number,require:true}
 })
 const userModel = mongodb.model("users", usershema);
 module.exports = userModel;
