@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { SocketService } from 'src/app/services/socket.service';
 import { BackendapiService } from 'src/app/services/backendapi.service';
+import { jwtDecode } from 'jwt-decode';
 export interface PeriodicElement {
   username: string;
   id: string;
@@ -23,12 +24,12 @@ export class AdmindashboardComponent   {
  
   dataSource = new MatTableDataSource();
   number=1;
-  totalRecords=0;
+  totalRecords=100;
   pageSize=5;
   pageIndex=0;
   filterState="";
   latestSocketData: any = null;
-
+  
 
 
   
@@ -101,7 +102,7 @@ export class AdmindashboardComponent   {
 
   ngOnInit()
   {
- 
+       
     
       this.socket.getusers().subscribe({
         next:(data:any)=>{  

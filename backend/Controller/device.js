@@ -19,7 +19,7 @@ async function addnewdevice({id,name})
           timestamp:Date.now()
         })
    let result=  await   device.save();
-     console.log("device store succuflluy",result)
+     
      return true;
     }else{
         
@@ -35,8 +35,7 @@ async function addnewdevice({id,name})
 
 async function getdevice(req, res) {
     const data = await devicemodel.find({});
-    console.log(data)
-    console.log("hello")
+   
     res.status(200).json({ devices: data });
 }
 module.exports={addnewdevice,getdevice}

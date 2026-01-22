@@ -86,8 +86,8 @@
 
 
 
-  <div class="main about section" style="padding:10px;display: block;height:100%;" >
-    <div style="padding:0px;margin-left:2px;margin-right:2px; width:100%;" data-aos-delay="100" >
+  <div class="main about section" style="padding:10px;display: block;min-height:100vh;" >
+    <div style="padding:0px;margin-left:2px;margin-right:2px; width:100%;"  >
  
       <div class="profile-card" style="width:100%;margin:0px;">
        
@@ -100,17 +100,22 @@
           <div class="details-grid" style="grid-template-columns: repeat(3, 1fr);">
             <div class="detail-item">
 
-              <i class="bi bi-battery" style="color: rgb(203, 246, 224);"></i>
+              <i class="bi bi-battery" style="color: rgb(255, 0, 0);"></i>
               <div class="detail-content">
-                <span>battary</span>
-                <strong id="battary"></strong>
+                <span>battery</span>
+                <strong id="battary">
+                  <ul>
+                    <li>battery : {{battery.per}}%</li>
+                    <li>Charging : {{battery.Charging}}</li>
+                  </ul>
+                </strong>
               </div>
             </div>
             <div class="detail-item" >
               <i class="bi bi-speedometer"></i>
               <div class="detail-content">
-                <span>internet Speed (Mbps)</span>
-                <strong id="real"></strong>
+                <span>download Speed (Mbps)</span>
+                <strong id="real">{{netspeed}} Mbps</strong>
               </div>
             </div>
             <div class="detail-item" data-aos-delay="150">
@@ -118,10 +123,10 @@
               <div class="detail-content">
                 <span>Internet</span>
                 <ul>
-                  <li id="Types"></li>
-                  <li id="Speeds"></li>
-                  <li id="Latencys"></li>
-                  <li id="Datasavers"></li>
+                  <li id="Types">type {{netinfo.type}}</li>
+                  <li id="Speeds">speed {{netinfo.speed}}</li>
+                  <li id="Latencys">latency {{netinfo.latency}}</li>
+                 
                 </ul>
               </div>
             </div>  
@@ -139,28 +144,19 @@
                 <strong id="location1"></strong>
               </div>
               <ul>
-                <li id="Latitude">Latitude</li>
-                <li id="Longitude">longitude</li>
-                <li id="Accuracy">Accuracy</li>
+                <li id="Latitude">Latitude {{location.latitude}} </li>
+                <li id="Longitude">longitude {{location.longitude}}</li>
+                <li id="Accuracy">Accuracy {{location.accuracy}}</li>
               </ul>
             </div>
-            <div class="detail-item" style="width: 100%;height:100%;" data-aos-delay="300">
-            
-             
-                <img src="" alt="video is not avalible">
-               
-               
-          
-             
-             
-            </div>
+           
            
 
             <div class="detail-item" data-aos-delay="100">
               <i class="bi bi-compass"></i>
               <div class="detail-content">
                 <span>streamin video</span>
-                 <video src="#" controls></video>
+                <img [src]="frame" alt="streming is not started">
               </div>
             </div>
 
@@ -171,9 +167,21 @@
               <div class="detail-content">
                 <span>motiton</span>
                 <ul>
-                  <li id="accelerationX">Latitude</li>
-                  <li id="accelerationY">longitude</li>
-                  <li id="accelerationZ">Accuracy</li>
+                  <li id="accelerationX">acceleration x : {{motion.accelerationx}}</li>
+                  <li id="accelerationY">acceleration y : {{motion.accelerationy}} </li>
+                  <li id="accelerationZ">acceleration Z : {{motion.accelerationz}}</li>
+
+                </ul>
+              </div>
+            </div>
+            <div class="detail-item" data-aos-delay="200">
+              <i class="bi bi-calendar-check"></i>
+              <div class="detail-content">
+                <span>orientation</span>
+                <ul>
+                  <li id="accelerationX">alpha : {{Orientation.alpha}}</li>
+                  <li id="accelerationY">beta : {{Orientation.beta}} </li>
+                  <li id="accelerationZ">gamma: {{Orientation.gamma}}</li>
 
                 </ul>
               </div>

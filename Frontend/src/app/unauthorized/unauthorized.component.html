@@ -1,8 +1,89 @@
-<div class="container">
-    <div class="card">
-      <div class="icon">🚫</div>
-      <h1>Access Denied</h1>
-      <p>You don’t have permission to view this page.</p>
-      <a href="/login" class="btn">Go to Login</a>
-    </div>
+
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body{
+    background:#f2f2f2;
+    height:100vh;
+  }
+  
+  .page{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+  }
+  
+  /* TOP */
+  .top{
+    margin-top:50px;
+  }
+  
+  .top h1{
+    font-size:120px;
+    color:#e00000;
+    font-weight:900;
+  }
+  
+  /* CENTER */
+  .center{
+    margin-top:-60px;
+  }
+  
+  .center h2{
+    font-size:26px;
+    color:#222;
+    margin-bottom:8px;
+  }
+  
+  .center p{
+    color:#666;
+    margin-bottom:18px;
+    font-size:16px;
+  }
+  
+  .btn{
+    text-decoration:none;
+    background:#e00000;
+    color:white;
+    padding:10px 22px;
+    border-radius:6px;
+    font-weight:bold;
+  }
+  
+  /* BOTTOM IMAGE */
+  .bottom{
+    width:100%;
+    text-align:center;
+  }
+  
+  .bottom img{
+    width:100%;
+    max-height:340px;
+    object-fit:contain;
+  }
+  </style>
+<div class="page">
+
+  <div class="top">
+    <h1>403</h1>
   </div>
+
+  <div class="center">
+    <h2>Access Denied</h2>
+    <p>You don’t have permission to view this page.</p>
+    <a href="/" class="btn">Go to Home</a>
+  </div>
+
+  <div class="bottom">
+    <img src="assets\assets\img\not-found.svg" alt="404 illustration">
+  </div>
+
+</div>

@@ -20,7 +20,7 @@ async function signup(req,res)
         if(veryfie)
         {
         
-       return res.status(409).json({error:"username allready used"})
+       return res.status(409).json({error:"username Already used"})
         }
     
        let encrptpassword=await bycrpt.hash(password,10);

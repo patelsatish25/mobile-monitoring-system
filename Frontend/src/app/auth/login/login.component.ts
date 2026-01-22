@@ -22,7 +22,7 @@ export class LoginComponent {
           next:(res:HttpResponse<any>)=>{
              
              localStorage.setItem('token',res.body.token)
-            this.router.navigate(['/devicess']);
+            this.router.navigate(['/devices']);
           },
           error:(error)=>{
             console.log("error:",error)

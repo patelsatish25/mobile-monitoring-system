@@ -24,11 +24,24 @@ export class ManuComponent {
    }
    isadminurl():boolean
    {
-    if(this.router.url=="/admindashboard")
+    if(this.router.url=="/admin")
     {
       return true;
     }else{
       return false;
     }
    }
+
+   Logout()
+   {
+       let logout=confirm("do you want to Logout");
+       if(logout)
+       {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+         
+       }
+   }
+
+   
 }

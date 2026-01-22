@@ -1,10 +1,94 @@
-<div class="container">
-  <div class="card">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background:#f2f2f2;
+  height:100vh;
+}
+
+.page{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+/* TOP 404 */
+.top{
+  margin-top:50px;
+}
+
+.top h1{
+  font-size:140px;
+  color:#e00000;
+  font-weight:900;
+  letter-spacing:5px;
+}
+
+/* CENTER TEXT + BUTTON */
+.center{
+  margin-top:-80px;
+}
+
+.center h2{
+  font-size:28px;
+  color:#222;
+  margin-bottom:8px;
+}
+
+.center p{
+  color:#666;
+  margin-bottom:18px;
+}
+
+.btn{
+  text-decoration:none;
+  background:#e00000;
+  color:white;
+  padding:10px 22px;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+/* BOTTOM IMAGE */
+.bottom{
+  width:100%;
+  text-align:center;
+}
+
+.bottom img{
+  width:100%;
+  max-height:340px;
+  object-fit:contain;
+}
+</style>
+
+
+
+<div class="page">
+
+  <div class="top">
     <h1>404</h1>
-    <h2>Page Not Found</h2>
-    <p>
-      Sorry, the page you are looking for doesn’t exist or has been moved.
-    </p>
-   
   </div>
+
+  <div class="center">
+    <h2>Page Not Found</h2>
+    <p>The page you are looking for doesn't exist.</p>
+    <a href="/" class="btn">Back to Home</a>
+  </div>
+
+  <div class="bottom">
+    <img src="assets\assets\img\not-found.svg" alt="404 illustration">
+  </div>
+
 </div>
+
+
+

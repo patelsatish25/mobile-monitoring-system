@@ -11,7 +11,7 @@ async function isAllowToDevicess(req,res)
     
     try {
       const decoded = jwt.verify(token, "qwerty@123");
-      console.log("14",decoded)
+     
       const user = await userModel.findById(decoded.id);
   
      if(user.status == 'approved')

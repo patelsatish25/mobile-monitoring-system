@@ -88,7 +88,9 @@ export class DevicesComponent {
         {
           this.api.isAllowTodevice().subscribe({
             next:(res)=>{
-                   this.router.navigate(['dashboard'])
+
+                   this.socket.connectDevice(Id);
+                   this.router.navigate(['devices',Id])
                    return true;
             },
             error:(res)=>{

@@ -8,7 +8,7 @@ async function setpermission(req,res)
 {
     const _id=req.params.id;
     
-    console.log("a",req.body)
+   
  let a =await userModel.updateOne(
         { _id: new mongoose.Types.ObjectId(_id) },
         {
@@ -33,7 +33,7 @@ async function setpermission(req,res)
  async function searchuser(req,res)
   {
     const page=req.params.page;
-    console.log(req.query)
+    
     let query={};
     if(req.query.status)
     {
