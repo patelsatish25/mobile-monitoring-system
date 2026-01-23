@@ -12,7 +12,7 @@ function initSocket(server)
  
      io=new Server(server,{
       cors: {
-        origin: "https://admin.socket.io",
+        origin: "*",
 
         credentials: true
       },
@@ -22,6 +22,9 @@ function initSocket(server)
        
           
         }
+         ,
+        pingInterval:10000,
+        pingTimeout:5000
     }
 
   

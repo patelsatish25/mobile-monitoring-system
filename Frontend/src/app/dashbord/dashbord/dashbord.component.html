@@ -1,6 +1,6 @@
 
 
- 
+
   <style>
     .scanner-wrapper {
       text-align: center;
@@ -18,6 +18,7 @@
         radial-gradient(circle at center, rgba(0, 255, 255, .1), transparent 60%);
       overflow: hidden;
       box-shadow: 0 0 18px rgba(255, 85, 0, 0.35);
+
     }
 
     .beam {
@@ -44,7 +45,7 @@
     .grid::after {
       transform: scale(.6);
     }
-    
+
 
     @keyframes spin {
       from {
@@ -75,6 +76,7 @@
         opacity: 1;
       }
     }
+
   </style>
 
 
@@ -82,43 +84,61 @@
 
 <header id="header" class="header align-items-center " >
   <app-menu></app-menu>
-</header>   
+</header>
 
 
 
   <div class="main about section" style="padding:10px;display: block;min-height:100vh;" >
     <div style="padding:0px;margin-left:2px;margin-right:2px; width:100%;"  >
- 
+
       <div class="profile-card" style="width:100%;margin:0px;">
-       
+
 
         <div class="content-wrapper">
 
-         
-        
+
+
 
           <div class="details-grid" style="grid-template-columns: repeat(3, 1fr);">
-            <div class="detail-item">
+            <div class="detail-item compponet" style="justify-content: center;display: flex; background-color: rgb(71, 71, 71);padding-top: 20px;">
 
-              <i class="bi bi-battery" style="color: rgb(255, 0, 0);"></i>
+
               <div class="detail-content">
-                <span>battery</span>
-                <strong id="battary">
+
+                <span style="text-align: center;font-size:large;">battery</span>
+                <div style="width:300px; height: 300px;padding-top:40px;">
+                <div class="progress" style="width:300px;height:100px;">
+                  <div
+                  class="progress-bar"
+                  [ngClass]="battery.Charging ? 'progress-bar bg-success': battery.per >19 ? 'progress-bar bg-info' : 'bg-danger' "
+                  [style.width.%]="battery.per"
+                  [attr.aria-valuenow]="battery.per"
+                  aria-valuemin="0",
+                  aria-valuemax="100",
+                  [ngStyle]="{ 'background-color': batterycolor }"
+                  >
+                  {{ battery.per }}%
+                </div>
+
+                </div>
+
+                <strong id="battary" style="padding:10px;padding-top:20px;">
                   <ul>
                     <li>battery : {{battery.per}}%</li>
                     <li>Charging : {{battery.Charging}}</li>
                   </ul>
                 </strong>
               </div>
-            </div>
-            <div class="detail-item" >
-              <i class="bi bi-speedometer"></i>
-              <div class="detail-content">
-                <span>download Speed (Mbps)</span>
-                <strong id="real">{{netspeed}} Mbps</strong>
               </div>
             </div>
-            <div class="detail-item" data-aos-delay="150">
+            <div class="detail-item" style="justify-content: center;display: flex;background-color: rgb(71, 71, 71);" >
+
+              <div class="detail-content" >
+                 <span style="text-align: center;font-size:large;">download Speed (Mbps)</span>
+                <div #chartContainer style="width: 300px; height: 300px;"></div>
+              </div>
+            </div>
+            <div class="detail-item" data-aos-delay="150" style="background-color: rgb(71, 71, 71)">
               <i class="bi bi-wifi"></i>
               <div class="detail-content">
                 <span>Internet</span>
@@ -126,21 +146,21 @@
                   <li id="Types">type {{netinfo.type}}</li>
                   <li id="Speeds">speed {{netinfo.speed}}</li>
                   <li id="Latencys">latency {{netinfo.latency}}</li>
-                 
+
                 </ul>
               </div>
-            </div>  
+            </div>
             </div>
             <div class="details-grid">
 
             <div class="detail-item" data-aos-delay="300">
-            
+
               <div class="detail-content">
                 <h1>location data</h1>
                 <div id="map" class="map" style="height:400px;width:500px;color: black;">
-                          
+
                 </div>
-               
+
                 <strong id="location1"></strong>
               </div>
               <ul>
@@ -149,8 +169,8 @@
                 <li id="Accuracy">Accuracy {{location.accuracy}}</li>
               </ul>
             </div>
-           
-           
+
+
 
             <div class="detail-item" data-aos-delay="100">
               <i class="bi bi-compass"></i>
@@ -160,7 +180,7 @@
               </div>
             </div>
 
-         
+
 
             <div class="detail-item" data-aos-delay="200">
               <i class="bi bi-calendar-check"></i>
@@ -186,6 +206,23 @@
                 </ul>
               </div>
             </div>
+            <div class="detail-item" data-aos-delay="200">
+
+              <div class="progress" style="width:400px;height:100px;">
+                <div
+                class="progress-bar"
+                [ngClass]="battery.Charging ? 'progress-bar bg-success': battery.per >19 ? 'progress-bar bg-info' : 'bg-danger' "
+                [style.width.%]="battery.per"
+                [attr.aria-valuenow]="battery.per"
+                aria-valuemin="0",
+                aria-valuemax="100",
+                [ngStyle]="{ 'background-color': batterycolor }"
+                >
+                {{ battery.per }}%
+              </div>
+
+              </div>
+            </div>
           </div>
 
 
@@ -193,6 +230,6 @@
       </div>
     </div>
 
- 
 
- 
+
+

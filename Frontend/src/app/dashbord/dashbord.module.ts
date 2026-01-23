@@ -6,8 +6,7 @@
   import { DevicesComponent } from './devices/devices.component';
   import { DashbordRoutingModule } from './dashbord-routing.module';
   import { ManuComponent } from './layout/manu/manu.component';
-
-
+ 
 
   @NgModule({
     declarations: [
@@ -21,6 +20,7 @@
       CommonModule,
       MaterialModule,
       DashbordRoutingModule,
+     
       
     ]
     

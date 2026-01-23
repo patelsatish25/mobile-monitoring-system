@@ -59,6 +59,7 @@ export class DevicesComponent {
     console.log(data)
 
 
+
   });
 
   }
@@ -69,6 +70,7 @@ export class DevicesComponent {
       next:(res:any)=>
       {
            
+           console.log(res)
             this.apiDevices = res.devices ?? res;
       }
     })
