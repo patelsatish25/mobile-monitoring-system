@@ -75,59 +75,61 @@ All updates happen in real time using **Socket.io**.
 
 ## 📂 Project Folder Structure
 
+```bash
 DEVICE_MONITORING_SYSTEM/
 │
-├── backend/ # Node.js Backend
-│ ├── config/
-│ │ └── dbconnection.js
-│ │
-│ ├── Controller/
-│ │ ├── Admin.js
-│ │ ├── auth.js
-│ │ ├── device.js
-│ │ └── users.js
-│ │
-│ ├── model/
-│ │ ├── devicemodel.js
-│ │ └── usermodel.js
-│ │
-│ ├── routes/
-│ │ ├── AdminRoute.js
-│ │ ├── AuthRoute.js
-│ │ ├── DeviceRoute.js
-│ │ └── userRouter.js
-│ │
-│ ├── servicess/
-│ │ └── usersdata.js
-│ │
-│ ├── public/
-│ │ ├── assets/
-│ │ └── screen.html
-│ │
-│ ├── package.json
-│ └── server.js
+├── backend/
+│   ├── config/
+│   │   └── dbconnection.js
+│   │
+│   ├── Controller/
+│   │   ├── Admin.js
+│   │   ├── auth.js
+│   │   ├── device.js
+│   │   └── users.js
+│   │
+│   ├── model/
+│   │   ├── devicemodel.js
+│   │   └── usermodel.js
+│   │
+│   ├── routes/
+│   │   ├── AdminRoute.js
+│   │   ├── AuthRoute.js
+│   │   ├── DeviceRoute.js
+│   │   └── userRouter.js
+│   │
+│   ├── servicess/
+│   │   └── usersdata.js
+│   │
+│   ├── public/
+│   │   ├── assets/
+│   │   └── screen.html
+│   │
+│   ├── package.json
+│   └── server.js
 │
-├── Frontend/ # Angular Frontend
-│ ├── src/
-│ │ ├── app/
-│ │ │ ├── auth/
-│ │ │ │ ├── login/
-│ │ │ │ └── signup/
-│ │ │ │
-│ │ │ ├── dashboard/
-│ │ │ ├── services/
-│ │ │ ├── unauthorized/
-│ │ │ ├── page-not-found/
-│ │ │ ├── guards/
-│ │ │ └── interceptors/
-│ │ │
-│ │ └── assets/
-│ │
-│ ├── angular.json
-│ └── package.json
+├── Frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── auth/
+│   │   │   │   ├── login/
+│   │   │   │   └── signup/
+│   │   │   │
+│   │   │   ├── dashboard/
+│   │   │   ├── services/
+│   │   │   ├── unauthorized/
+│   │   │   ├── page-not-found/
+│   │   │   ├── guards/
+│   │   │   └── interceptors/
+│   │   │
+│   │   └── assets/
+│   │
+│   ├── angular.json
+│   └── package.json
 │
 ├── README.md
 └── .gitignore
+
 
 
 
