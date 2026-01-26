@@ -174,7 +174,7 @@ Backend forwards data instantly to dashboard (live monitoring).
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/your-username/mobile-monitoring-system.git
+git clone https://github.com/patelsatish25/mobile-monitoring-system.git
 cd DEVICE_MONITORING_SYSTEM
 cd backend
 npm install
