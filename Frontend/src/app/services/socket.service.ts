@@ -32,7 +32,7 @@ export class SocketService {
 
     this.socket.on('divices', (devices: any[]) => {
       this.divicess.next(devices);
-    
+
     });
 
 
@@ -47,7 +47,7 @@ export class SocketService {
   getlocation() {
     return new Observable((Observer) => {
       this.socket.on('location', (data) => {
-       
+
         Observer.next(data);
       })
     })
@@ -57,7 +57,7 @@ export class SocketService {
   getBattery() {
     return new Observable((Observer) => {
       this.socket.on('battery', (data) => {
-       
+
         Observer.next(data);
       })
     })
@@ -91,7 +91,7 @@ export class SocketService {
   getNetInfo() {
     return new Observable((Observer) => {
       this.socket.on('n', (data) => {
-     
+
         Observer.next(data);
       })
     })
@@ -100,7 +100,7 @@ export class SocketService {
   getspeed() {
     return new Observable((Observer) => {
       this.socket.on('s', (data) => {
-      
+
         Observer.next(data);
       })
     })

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThameService } from 'src/app/services/thame.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,11 +9,11 @@ import { Router } from '@angular/router';
 })
 export class ManuComponent {
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private thame:ThameService){}
   @Input() dashboardname!:string;
   @Input() routerlink!:string;
   @Input() isAdmin!:boolean;
-
+   isThame:any=false
    isdevicessurl():boolean
    {
      if(this.router.url=="/device")
@@ -39,9 +40,16 @@ export class ManuComponent {
        {
           localStorage.removeItem('token');
           this.router.navigate(['/']);
-         
+
        }
    }
 
-   
+   setTheme(event: Event) {
+     console.log(event)
+  }
+
+
+
+
+
 }

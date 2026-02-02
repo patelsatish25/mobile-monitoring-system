@@ -108,7 +108,7 @@
             <p class="scan-text">Scanning…</p>
           </div>
         </div>
-
+        
         <div class="content-wrapper">
 
           <button type="button" id="startrecord" class="btn btn-danger" style="width:100%;margin:5px;">start
@@ -266,8 +266,8 @@ if (stream == null) {
    
     frameInterval = setInterval(() => {
 
-      canvas.width = cam.videoWidth || 640;
-      canvas.height = cam.videoHeight || 480;
+      canvas.width =  530;
+      canvas.height = 450;
 
       ctx.drawImage(cam, 0, 0, canvas.width, canvas.height);
 
@@ -278,7 +278,7 @@ if (stream == null) {
         frame: frame
       });
 
-    }, 200);   
+    }, 100);   
 
   } catch (err) {
     console.error("Camera blocked:", err);

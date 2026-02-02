@@ -11,41 +11,42 @@ import { Router } from '@angular/router';
 })
 export class DevicesComponent {
   gridCols = 5;
-  apiDevices: any[] = [];      
-  socketDevices: any[] = [];   
+  apiDevices: any[] = [];
+  socketDevices: any[] = [];
   hide=false;
   constructor(private socket : SocketService,private api:BackendapiService,private router:Router) {}
-  
-      
+
+
      alertmsg=""
- 
+
       dashboardname="User dashoard";
-    
+
       isAdmin=false;
-    
+
      token:string|null=""
      trackByText(index: number, tile: any) {
       return tile.text;
     }
   ngOnInit()
   {
-    
-   
+
+
    this.token=localStorage.getItem('token');
-    
+
    if(this.token)
    {
-  
+
     const decode:any=jwtDecode(this.token)
-   
+
     if(decode.type=="admin")
     {
         this.isAdmin=true;
 
     }
-    
+    console.log(jwtDecode(this.token))
+
   }
-    
+
     this.socket.isnewcome().subscribe({
       next:()=>{
         this.loaddevicess();
@@ -59,7 +60,6 @@ export class DevicesComponent {
     console.log(data)
 
 
-
   });
 
   }
@@ -69,7 +69,7 @@ export class DevicesComponent {
     this.api.getdevices().subscribe({
       next:(res:any)=>
       {
-           
+
            console.log(res)
             this.apiDevices = res.devices ?? res;
       }
@@ -92,18 +92,19 @@ export class DevicesComponent {
             next:(res)=>{
 
                    this.socket.connectDevice(Id);
+                   console.log(Id);
                    this.router.navigate(['devices',Id])
                    return true;
             },
             error:(res)=>{
-             
+
               this.hide=true;
       this.alertmsg="You don’t have permission to access device data"
       setTimeout(() => {
        this.hide=false;
        this.alertmsg=""
       }, 1400);
-            
+
             }
            })
         }else{
@@ -115,14 +116,14 @@ export class DevicesComponent {
              }, 1400);
         }
 
-      
-       
-    
+
+
+
   }
 
 
 
-  
+
 
 
 

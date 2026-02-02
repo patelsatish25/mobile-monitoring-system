@@ -38,7 +38,7 @@ async function signup(req,res)
      let a= await user.save();
   
      const io=getio();
-    //  const data=await userModel.find({},{password:0})
+    
     const users=await userModel.find({},{password:0}).sort({ date: -1 }).limit(5);
     const total=await userModel.find({}).countDocuments({});
     const data={users:users,total:total};
