@@ -12,9 +12,9 @@ function initSocket(server)
  
      io=new Server(server,{
       cors: {
-        origin: "*",
 
-        credentials: true
+        origin: "*",
+    credentials: true
       },
         connectionStateRecovery:{
         maxDisconnectionDuration:1000*60*2,
@@ -29,6 +29,7 @@ function initSocket(server)
 
   
   );
+  
 
   instrument(io,{
     auth:false,
@@ -41,7 +42,7 @@ function initSocket(server)
         
         if(Socket.recovered)
         {
-          
+            
           console.log("recoverd")
 
                

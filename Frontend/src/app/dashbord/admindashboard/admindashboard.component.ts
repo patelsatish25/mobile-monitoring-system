@@ -20,8 +20,11 @@ export interface PeriodicElement {
 export class AdmindashboardComponent   {
 
   constructor(private socket:SocketService,private api:BackendapiService){}
+
+
+
   displayedColumns: string[] = ['id', 'username','email', 'status','button'];
- 
+
   dataSource = new MatTableDataSource();
   number=1;
   totalRecords=100;
@@ -29,12 +32,12 @@ export class AdmindashboardComponent   {
   pageIndex=0;
   filterState="";
   latestSocketData: any = null;
-  
 
 
-  
 
-  
+
+
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
@@ -51,27 +54,27 @@ export class AdmindashboardComponent   {
   {
          if(data!="All")
          {
-          this.filterIsOn=true; 
+          this.filterIsOn=true;
           this.filterState=data;
           this.getfilterdata();
          }else{
-          this.filterIsOn=false; 
+          this.filterIsOn=false;
           this.filterState=""
            console.log('hello')
-         
+
         if (this.latestSocketData) {
-    
+
       console.log(this.latestSocketData.users);
       this.dataSource.data = this.latestSocketData.users;
       this.totalRecords = this.latestSocketData.total;
     }
-         }  
-        
+         }
+
   }
 
    getfilterdata()
    {
-      
+
       this.api.getuserfilterdata({
         pageIndex:this.pageIndex+1,
         statetype:this.filterState
@@ -79,8 +82,8 @@ export class AdmindashboardComponent   {
         next:(data:any)=>{
           this.dataSource.data=data.users;
           this.totalRecords=data.total;
-        
-        
+
+
         }
       })
    }
@@ -90,7 +93,7 @@ export class AdmindashboardComponent   {
         this.api.updateState(id,state).subscribe(
           {
             next:(res)=>{
-             
+
               if(this.filterIsOn)
                 {
                   this.getfilterdata();
@@ -102,17 +105,19 @@ export class AdmindashboardComponent   {
 
   ngOnInit()
   {
-       
-    
+
+
+
       this.socket.getusers().subscribe({
-        next:(data:any)=>{  
-          this.latestSocketData=data;      
+        next:(data:any)=>{
+          this.latestSocketData=data;
           console.log(data)
+
           if(!this.filterIsOn)
             {
-              
+
               console.log(data)
-              
+
              this.dataSource.data=data.users;
             this.totalRecords=data.total;
             console.log(this.totalRecords)
@@ -120,18 +125,18 @@ export class AdmindashboardComponent   {
         }
        }
       })
-     
-    
-     
+
+
+
   }
-  
+
   // ngAfterViewInit() {
   //   this.dataSource.paginator = this.paginator;
   // }
- 
 
 
-  
+
+
 }
 
 

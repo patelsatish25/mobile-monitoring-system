@@ -6,17 +6,17 @@
         color:azure;
         height: 90vh;
         padding-top:10px;
-        
+
     }
     .contener{
         height: 90%;
         width: 100%;
         background-color: rgb(40, 40, 40);
-       
+
         border-radius:10px;
         padding:20px;
-        
-    } 
+
+    }
     .header
     {
       width:100%;
@@ -74,8 +74,8 @@
   box-shadow: 0 0 10px #c70000;
 }
 .inactive-border:hover{
- 
-  box-shadow: 0 0 14px #f60000; 
+
+  box-shadow: 0 0 14px #f60000;
 }
 
 .grid {
@@ -85,8 +85,8 @@
 }
 
 .alertdialog{
-   
-  
+
+
    justify-content: center;
    display: flex;
    height: 60px;
@@ -96,7 +96,7 @@
     background-color: red;
     width:600px;
     text-align: center;
-      
+
     border-radius: 10px;
     padding:5px;
 
@@ -105,34 +105,34 @@
 </style>
 
   <app-menu  [dashboardname]="dashboardname" [isAdmin]="isAdmin" routerlink="routerlink"></app-menu>
-  
+
 
 <main class="main">
- 
+
   <div class="alertdialog">
-    
+
 
     <h1 class="alertmsg"  *ngIf="hide"  style="color: white; padding-bottom: 0px;">{{alertmsg}}</h1>
   </div>
-      <div class="contener">
+      <div class="contener" style="overflow: auto;">
 
         <div class="grid">
 
           <div
             class="device-card"
-           
+
             (click)="opendevice(d.deviceId)"
             *ngFor="let d of apiDevices"
             [ngClass]="{
               'active-border': isActive(d.deviceId),
               'inactive-border': !isActive(d.deviceId)
             }"
-            
+
 
           >
-        
+
             <h3>{{ d.name }}</h3>
-        
+
             <p>Status:
               <span *ngIf="isActive(d.deviceId)" style="color:lime">
                 ACTIVE
@@ -141,18 +141,18 @@
                 INACTIVE
               </span>
             </p>
-        
+
           </div>
-        
+
         </div>
-        
-        
-        
-       
-        
-        
-        
-        
+
+
+
+
+
+
+
+
       </div>
 </main>
 

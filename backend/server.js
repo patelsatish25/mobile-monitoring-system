@@ -9,4 +9,3 @@ dbconnect();
 server.listen(5000,"0.0.0.0",()=>{
     console.log("server is ready http://localhost:5000")
 })
-//routes

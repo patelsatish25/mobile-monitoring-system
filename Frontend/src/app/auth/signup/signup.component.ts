@@ -25,16 +25,16 @@ export class SignupComponent {
         Validators.required,
         passwordValidator,
         Validators.minLength(6)
-        
+
       ]),
       email:new FormControl("",[Validators.required,Validators.email])
     })
-      
-    
-     
+
+
+
     getusername():string | null
     {
-     
+
       const user=this.form.get('username')
        if(!user || (user.touched && user.invalid))
        {
@@ -60,7 +60,7 @@ export class SignupComponent {
        return "";
     }
 
-    getpasssworError():string 
+    getpasssworError():string
     {
       const user=this.form.get('password')
       if(!user || (user.touched && user.invalid))
@@ -86,7 +86,7 @@ export class SignupComponent {
             }
              case user?.hasError('minlength'):
                return 'password must be at least 6 characters';
- 
+
             }
         }
         return "";
@@ -95,14 +95,14 @@ export class SignupComponent {
     getemailerror():string
     {
       const user=this.form.get('email')
-     
+
       if(!user || (user.touched && user.invalid))
         {
           switch(true)
           {
            case user?.errors?.['required']:{
              return "email must be requured";
-            
+
            }
            case user?.errors?.['email']:{
             return "email is not valid"
@@ -114,8 +114,8 @@ export class SignupComponent {
     }
 
     handleSubmt()
-    { 
-    
+    {
+
       if(this.form.valid)
       {
         const data= {
@@ -123,11 +123,11 @@ export class SignupComponent {
           password: this.form.get('password')!.value!,
           email: this.form.get('email')!.value!
         };
-      
+
         console.log(data)
        this.api.signup(data).subscribe({
         next:(res)=>{
-          this.router.navigate(["devicess"])
+          this.router.navigate(["/"])
         }
         ,
         error:(error)=>{
@@ -135,7 +135,7 @@ export class SignupComponent {
           this.alertMessage=error?.error?.error;
           this.alertbox=true;
           setTimeout(()=>{
-        
+
             this.alertMessage="";
             this.alertbox=false;
           },1500)

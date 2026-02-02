@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Token } from '@angular/compiler';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SocketService } from 'src/app/services/socket.service';
 import * as echarts from 'echarts';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
-
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-dashbord',
@@ -14,14 +15,182 @@ export class DashbordComponent implements OnInit {
 
 
   @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
-
+  @ViewChild('net',{static:false})netcontener!:ElementRef;
+   @ViewChild('orientationchartid',{static:false})orientchart!:ElementRef;
+   @ViewChild('MotionchartId',{static:false})motionchartID!:ElementRef;
   private mychars!: echarts.ECharts;
+  private netbar!:echarts.ECharts;
+  private orientationchart!:echarts.ECharts;
+  private Motionchart!:echarts.ECharts;
+  private resizeObserver!: ResizeObserver;
+opacity: any;
   constructor(
     private socket: SocketService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+
+
   ) { }
+
+
   batterycolor="rgb(228, 100, 100);"
 
+   originatindata:any= {
+    alpha:[],
+    beta:[],
+    gamma:[]
+
+   }
+
+   motionData:any={
+    x:[],
+    y:[],
+    z:[]
+   }
+
+
+
+  orientionOption= {
+    title: { text: 'Device Orientation (Live)' },
+    legend: {
+      orient: 'horizontal',
+   top: 30,
+   left:'center',
+      right: 100,
+      width: 500,
+
+    },
+    grid: {
+      left: '0%',
+      right: '0%',
+      bottom: '0%',
+      top: '10%',
+      containLabel: true
+  },
+    tooltip: { trigger: 'axis' },
+    animation: false,
+    xAxis: {
+      type: 'time',
+      boundaryGap: false
+    },
+    yAxis: {
+      type: 'value',
+      scale: true
+    },
+    series: [
+      {
+        name: 'Alpha',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: []
+      },
+      {
+        name: 'Beta',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: []
+      },
+      {
+        name: 'Gamma',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: []
+      }
+    ]
+  };
+
+  motionOption= {
+    title: { text: 'Device Motion (Live)' },
+    legend: {
+      orient: 'horizontal',
+      top: 30,
+      left:'center',
+      right: 100,
+      width: 500,
+
+    }, grid: {
+      left: '0%',
+      right: '0%',
+      bottom: '0%',
+      top: '10%',
+      containLabel: true
+  },
+    tooltip: { trigger: 'axis' },
+    animation: false,
+    xAxis: {
+      type: 'time',
+      boundaryGap: false
+    },
+    yAxis: {
+      type: 'value',
+      scale: true
+    },
+    series: [
+      {
+        name: 'X',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: []
+      },
+      {
+        name: 'Y',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: []
+      },
+      {
+        name: 'Z',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: []
+      }
+    ]
+  };
+
+
+  option1 = {
+
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisLabel:{
+          show:false
+        },
+        splitLine: {
+          show:false
+
+        },
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        }
+
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: {
+        show:false
+
+      },
+      axisLabel:{
+        show:false
+      }
+      },
+      series: [
+        {
+          data: [10,50,100,150,200],
+          type: 'bar'
+        }
+      ]
+
+  };
   option = {
     series: [
       {
@@ -98,7 +267,8 @@ export class DashbordComponent implements OnInit {
   };
 
   frame = "";
-
+  isAdmin=false;
+  dashboardname="user dashborad"
   private map!: L.Map;
 
   customIcon = L.icon({
@@ -142,12 +312,32 @@ export class DashbordComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.loadmeter();
+    this.loadnetwork();
+    this. loadOriention();
+    this.loadMotion();
+
+
+window.addEventListener('resize',()=>{
+
+  this.Motionchart.resize()
+  this.orientationchart.resize()
+})
+
+
+
   }
   ngOnInit(): void {
 
+     let Token:any=localStorage.getItem('token')
+      let decodeToken:any=jwtDecode(Token);
+
+   if(decodeToken.type=="admin")
+   {
+    this.isAdmin=true;
+   }
 
     const id: any = this.router.snapshot.paramMap.get('id');
-    console.log("Device ID:", id);
+
 
     this.socket.connectDevice(id);
 
@@ -155,7 +345,7 @@ export class DashbordComponent implements OnInit {
 
     this.socket.getBattery().subscribe({
       next: (res: any) => {
-        this.battery.per = (res.battrylevel * 100);
+        this.battery.per = Math.floor(res.battrylevel * 100);
         this.battery.Charging = res.Charging;
       }
     });
@@ -198,29 +388,196 @@ export class DashbordComponent implements OnInit {
         this.netinfo.speed = res.speed;
         this.netinfo.latency = res.latency;
 
+        if(res.type==="4g")
+        {
+
+            this.netbar.setOption({
+        series: [
+          {
+            data: [10,50,100,150],
+            type: 'bar'
+          }
+        ]
+       })
+        }else if(res.type==="3g")
+        {
+          this.netbar.setOption({
+            series: [
+              {
+                data: [10,50,100],
+                type: 'bar'
+              }
+            ]
+           })
+        }else if(res.type==="5g")
+        {
+          this.netbar.setOption({
+            series: [
+              {
+                data: [10,50,100,150,200],
+                type: 'bar'
+              }
+            ]
+           })
+        }else{
+          this.netbar.setOption({
+            series: [
+              {
+                data: [10],
+                type: 'bar'
+              }
+            ]
+           })
+        }
+
+
+
       }
     });
     this.socket.getVideo().subscribe({
       next: (res: any) => {
-        console.log(res)
+
         this.frame = res.frame
+
       }
     })
 
     this.socket.getMotion().subscribe({
       next: (res: any) => {
-        console.log(res)
-        this.motion.accelerationx = res.motion.x;
-        this.motion.accelerationy = res.motion.y;
-        this.motion.accelerationz = res.motion.z
+
+        this.motion.accelerationx = res.motion.x.toFixed(3);
+        this.motion.accelerationy = res.motion.y.toFixed(3);
+        this.motion.accelerationz = res.motion.z.toFixed(3)
+
+        this.motionData.x.push([Date.now(),res.motion.x.toFixed(3)])
+        this.motionData.y.push([Date.now(),res.motion.y.toFixed(3)])
+        this.motionData.z.push([Date.now(),res.motion.z.toFixed(3)])
+
+
+         if( this.motionData.x.length > 200)
+         {
+          this.motionData.x.shift();
+          this.motionData.y.shift();
+          this.motionData.z.shift();
+
+         }
+
+         this.Motionchart.setOption(
+          {
+          legend: {
+            orient: 'horizontal',
+            top: 30,
+            left:'center',
+
+            formatter: (name: string) => {
+              if (name === 'X') {
+                return `X : ${this.motion.accelerationx}`;
+              }
+              if (name === 'Y') {
+                return `Y : ${this.motion.accelerationy}`;
+              }
+              if (name === 'Z') {
+                return `Z : ${this.motion.accelerationz}`;
+              }
+              return name;
+            },
+
+          },
+
+
+          series: [
+            {
+              name: 'Z',
+              type: 'line',
+              showSymbol: false,
+              data: this.motionData.z
+            },
+            {
+              name: 'X',
+              type: 'line',
+              showSymbol: false,
+              data: this.motionData.x
+            },
+            {
+              name: 'Y',
+              type: 'line',
+              showSymbol: false,
+              data: this.motionData.y
+            }
+          ]
+        }, false);
+
+
+
+
+
       }
     })
 
     this.socket.getOrientation().subscribe({
       next: (res: any) => {
-        this.Orientation.alpha = res.alpha;
-        this.Orientation.beta = res.gamma;
-        this.Orientation.gamma = res.gamma
+        this.Orientation.alpha = res.alpha.toFixed(3);
+        this.Orientation.beta = res.beta.toFixed(3);
+        this.Orientation.gamma = res.gamma.toFixed(3);
+
+        this.originatindata.alpha.push([Date.now(),res.alpha.toFixed(3)]);
+        this.originatindata.beta.push([Date.now(),res.beta.toFixed(3)]);
+        this.originatindata.gamma.push([Date.now(),res.gamma.toFixed(3)]);
+
+
+
+  if (this.originatindata.alpha.length > 200) {
+    this.originatindata.alpha.shift();
+    this.originatindata.beta.shift();
+    this.originatindata.gamma.shift();
+  }
+
+
+
+
+  this.orientationchart.setOption({
+    legend: {
+      orient: 'horizontal',
+            top: 30,
+            left:'center',
+      formatter: (name: string) => {
+        if (name === 'Alpha') {
+          return `Alpha : ${this.Orientation.alpha}`;
+        }
+        if (name === 'Beta') {
+          return `Beta : ${this.Orientation.beta}`;
+        }
+        if (name === 'Gamma') {
+          return `Gamma : ${this.Orientation.gamma}`;
+        }
+        return name;
+      },
+
+    },
+
+
+    series: [
+      {
+        name: 'Beta',
+        type: 'line',
+        showSymbol: false,
+        data: this.originatindata.beta
+      },
+      {
+        name: 'Alpha',
+        type: 'line',
+        showSymbol: false,
+        data: this.originatindata.alpha
+      },
+      {
+        name: 'Gamma',
+        type: 'line',
+        showSymbol: false,
+        data: this.originatindata.gamma
+      }
+    ]
+  });
+
 
       }
     })
@@ -231,7 +588,7 @@ export class DashbordComponent implements OnInit {
 
   loadMap() {
 
-    this.map = L.map('map')
+    this.map = L.map('maps')
       .setView([this.location.latitude, this.location.longitude], 10);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -246,7 +603,7 @@ export class DashbordComponent implements OnInit {
 
   loadmeter() {
     let chart = this.chartContainer.nativeElement;
-    console.log(chart);
+
     this.mychars = echarts.init(chart)
 
     this.mychars.setOption(this.option)
@@ -282,4 +639,26 @@ export class DashbordComponent implements OnInit {
       fillOpacity: 0.3
     }).addTo(this.map);
   }
+
+   loadnetwork()
+   {
+      let net=this.netcontener.nativeElement;
+
+     this.netbar=echarts.init(net);
+     this.netbar.setOption(this.option1);
+   }
+
+   loadOriention()
+   {
+    let oriention=this.orientchart.nativeElement;
+     this.orientationchart=echarts.init(oriention);
+     this.orientationchart.setOption(this.orientionOption)
+   }
+   loadMotion()
+   {
+    let motion=this.motionchartID.nativeElement;
+    this.Motionchart=echarts.init(motion);
+    this.Motionchart.setOption(this.motionOption)
+   }
+
 }

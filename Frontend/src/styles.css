@@ -2,3 +2,18 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root
+{
+   ---bg: #f9fafb;
+   --card-bg:#ffffff;
+   --text: #111827;
+   --accent: #2563eb;
+   --accent: #2563eb;
+}
+.darkThame{
+  --bg: #111827;
+  --card-bg: #1f2937;
+  --text: #f9fafb;
+  --text-muted: #9ca3af;
+  --accent: #3b82f6;
+}

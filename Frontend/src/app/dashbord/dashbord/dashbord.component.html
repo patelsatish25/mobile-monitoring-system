@@ -2,6 +2,7 @@
 
 
   <style>
+
     .scanner-wrapper {
       text-align: center;
       margin: 20px 0 30px;
@@ -76,37 +77,68 @@
         opacity: 1;
       }
     }
+    .grids{
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    @media (max-width: 768px) {
+  .details-grid {
+    grid-template-columns: 1fr !important;
+
+  }
+  .map{
+      height:400px;
+      width:100%;
+      color: black;
+
+      border: 1px solid black;
+    }
+    .frames {
+      display: block;      /* img is inline by default */
+    margin: 0 auto;      /* 👈 centers horizontally */
+    max-width: 100%;     /* prevent overflow */
+    height: auto;
+  }
+  .graphchart
+  {
+    width:400px;height:500px;
+  }
+
+}
+.graphchart{
+  width:100%;height:500px;
+}
 
   </style>
 
 
 
 
-<header id="header" class="header align-items-center " >
-  <app-menu></app-menu>
+<header id="header" class="header align-items-center " style="padding-top:0px;display:block;width:100%;">
+
+  <app-menu  [dashboardname]="dashboardname" [isAdmin]="isAdmin" routerlink="routerlink"></app-menu>
 </header>
 
 
 
-  <div class="main about section" style="padding:10px;display: block;min-height:100vh;" >
+  <div class="main about section" style="padding:10px;  ">
     <div style="padding:0px;margin-left:2px;margin-right:2px; width:100%;"  >
 
       <div class="profile-card" style="width:100%;margin:0px;">
 
-
         <div class="content-wrapper">
 
 
-
-
-          <div class="details-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="details-grid " style="grid-template-columns: repeat(3, 1fr);">
             <div class="detail-item compponet" style="justify-content: center;display: flex; background-color: rgb(71, 71, 71);padding-top: 20px;">
 
 
               <div class="detail-content">
 
                 <span style="text-align: center;font-size:large;">battery</span>
-                <div style="width:300px; height: 300px;padding-top:40px;">
+
+                <div style="width:300px; height: 300px;padding-top:90px;">
                 <div class="progress" style="width:300px;height:100px;">
                   <div
                   class="progress-bar"
@@ -138,11 +170,16 @@
                 <div #chartContainer style="width: 300px; height: 300px;"></div>
               </div>
             </div>
-            <div class="detail-item" data-aos-delay="150" style="background-color: rgb(71, 71, 71)">
-              <i class="bi bi-wifi"></i>
-              <div class="detail-content">
-                <span>Internet</span>
-                <ul>
+            <div class="detail-item" data-aos-delay="150" style="justify-content: center;display: block;background-color: rgb(71, 71, 71);">
+
+
+
+
+              <div style="text-align: center;font-size:large;color:color(srgb 0.85098 0.85098 0.85098 / 0.6);">INTERNET</div>
+              <div class="detail-content" style="display: flex;justify-content: center;padding:70px;">
+
+                <div  #net style="height: 200px;width:200px;"></div>
+                <ul style="justify-content: center;padding-top:60px;">
                   <li id="Types">type {{netinfo.type}}</li>
                   <li id="Speeds">speed {{netinfo.speed}}</li>
                   <li id="Latencys">latency {{netinfo.latency}}</li>
@@ -151,78 +188,46 @@
               </div>
             </div>
             </div>
-            <div class="details-grid">
+            <div class="details-grid" style="grid-template-columns:1.6fr 0.7fr;">
 
-            <div class="detail-item" data-aos-delay="300">
+              <div class="detail-item map" data-aos-delay="200" id="maps">
 
-              <div class="detail-content">
-                <h1>location data</h1>
-                <div id="map" class="map" style="height:400px;width:500px;color: black;">
+                <!-- <div  class="maps" style="height:400px;width:400px;color: black;border: 1px solid black;">
 
-                </div>
-
-                <strong id="location1"></strong>
+                  </div> -->
               </div>
-              <ul>
-                <li id="Latitude">Latitude {{location.latitude}} </li>
-                <li id="Longitude">longitude {{location.longitude}}</li>
-                <li id="Accuracy">Accuracy {{location.accuracy}}</li>
-              </ul>
-            </div>
 
 
 
-            <div class="detail-item" data-aos-delay="100">
-              <i class="bi bi-compass"></i>
-              <div class="detail-content">
-                <span>streamin video</span>
-                <img [src]="frame" alt="streming is not started">
-              </div>
-            </div>
 
 
+                <img [src]="frame || 'assets/img/6732827.jpg'"
 
-            <div class="detail-item" data-aos-delay="200">
-              <i class="bi bi-calendar-check"></i>
-              <div class="detail-content">
-                <span>motiton</span>
-                <ul>
-                  <li id="accelerationX">acceleration x : {{motion.accelerationx}}</li>
-                  <li id="accelerationY">acceleration y : {{motion.accelerationy}} </li>
-                  <li id="accelerationZ">acceleration Z : {{motion.accelerationz}}</li>
+                [ngStyle]="frame == '' ? { opacity: 0.5 } : {}"
 
-                </ul>
-              </div>
-            </div>
-            <div class="detail-item" data-aos-delay="200">
-              <i class="bi bi-calendar-check"></i>
-              <div class="detail-content">
-                <span>orientation</span>
-                <ul>
-                  <li id="accelerationX">alpha : {{Orientation.alpha}}</li>
-                  <li id="accelerationY">beta : {{Orientation.beta}} </li>
-                  <li id="accelerationZ">gamma: {{Orientation.gamma}}</li>
-
-                </ul>
-              </div>
-            </div>
-            <div class="detail-item" data-aos-delay="200">
-
-              <div class="progress" style="width:400px;height:100px;">
-                <div
-                class="progress-bar"
-                [ngClass]="battery.Charging ? 'progress-bar bg-success': battery.per >19 ? 'progress-bar bg-info' : 'bg-danger' "
-                [style.width.%]="battery.per"
-                [attr.aria-valuenow]="battery.per"
-                aria-valuemin="0",
-                aria-valuemax="100",
-                [ngStyle]="{ 'background-color': batterycolor }"
+                class="detail-item frames" height="450"
+                width="530" data-aos-delay="100"
+                alt="streming is not started"
+                style="padding:0px;"
                 >
-                {{ battery.per }}%
-              </div>
 
+            </div>
+
+
+            <div class="details-grid" style="width:100%; grid-template-columns: 1fr;  display: grid">
+              <div class="detail-item" data-aos-delay="200" style="background-color: white;">
+
+                <div #orientationchartid  style=" width:100%;height:500px;"></div>
               </div>
             </div>
+            <div class="details-grid" style="width:100%; grid-template-columns: 1fr;  display: grid">
+              <div class="detail-item" data-aos-delay="200" style="background-color: white;">
+
+                <div #MotionchartId  style=" width:100%;height:500px;"></div>
+              </div>
+            </div>
+
+
           </div>
 
 
