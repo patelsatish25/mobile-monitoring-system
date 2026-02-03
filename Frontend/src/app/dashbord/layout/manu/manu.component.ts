@@ -14,6 +14,7 @@ export class ManuComponent {
   @Input() routerlink!:string;
   @Input() isAdmin!:boolean;
    isThame:any=false
+   isDark=false
    isdevicessurl():boolean
    {
      if(this.router.url=="/device")
@@ -45,7 +46,19 @@ export class ManuComponent {
    }
 
    setTheme(event: Event) {
-     console.log(event)
+
+    this.thame.toggleTheme();
+
+  }
+
+  ngOnInit()
+  {
+    console.log('hello')
+    this.thame.isDark$.subscribe((data:boolean)=>{
+      this.isDark=data;
+      console.log(data)
+    })
+
   }
 
 

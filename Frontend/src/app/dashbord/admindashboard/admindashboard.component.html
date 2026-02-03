@@ -1,76 +1,5 @@
 
-<style>
-    .main{
-        background-color: rgb(17, 17, 17);
-        padding: 50px;
-        color:azure;
-        height: 90vh;
-    }
-    .contener{
-        height: 100%;
-        width: 100%;
-        background-color: rgb(40, 40, 40);
 
-        border-radius:10px;
-    }
-    .header
-    {
-      width:100%;
-      height:90px;
-      background-color: blueviolet;
-    }
-    section {
-  display: flex;
-  align-items: center;
-}
-
-
-.example-label {
-  font-size: 14px;
-  margin: 0 16px 0 8px;
-  min-width: 120px;
-}
-
-.example-button-row {
-  max-width: 600px;
-}
-
-.example-button-row .mat-mdc-button-base {
-  margin: 8px 8px 8px 0;
-}
-
-.example-flex-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.action-btn {
-  margin-right: 10px;
-}
-
-/* Approved */
-.btn-approved {
-  background-color: #084b00 !important;
-  color: #fff !important;
-}
-
-.btn-approve{
-  background-color: #19cf04 !important;
-  color: #fff !important;
-
-}
-/* Rejected */
-.btn-rejected {
-  background-color: #7c0800 !important;
-  color: #fff !important;
-}
-.btn-reject{
-  background-color:#ff2717 !important;
-  color: #fff !important;
-
-}
-
-</style>
 
  <app-menu></app-menu>
 
@@ -78,18 +7,18 @@
 <main class="main">
 
 
-      <div class="contener">
-        <mat-toolbar>
+      <div class="contener" >
+        <mat-toolbar class="table-admin-h">
                    <span  style="flex: 1 1 auto;" >users</span>
-                   <div style="padding-top:15px;">
-          <mat-form-field appearance="outline">
-            <mat-label>Filter by State</mat-label>
+                   <div style="padding-top:15px;"  >
+          <mat-form-field appearance="outline" >
+            <mat-label  class="filter">Filter by State</mat-label>
 
-            <mat-select  (selectionChange)="filterByState($event.value)">
-              <mat-option value="All">All</mat-option>
-              <mat-option  value="approved">APPROVED</mat-option>
-              <mat-option value="pending" >PENDING</mat-option>
-              <mat-option value="rejected" >REJECTED</mat-option>
+            <mat-select  class="filter-box" panelClass="state-select-panel"  (selectionChange)="filterByState($event.value)">
+              <mat-option  value="All">All</mat-option>
+              <mat-option value="approved">APPROVED</mat-option>
+              <mat-option  value="pending" >PENDING</mat-option>
+              <mat-option  value="rejected" >REJECTED</mat-option>
             </mat-select>
 
           </mat-form-field>
@@ -97,8 +26,8 @@
 
 
         </mat-toolbar>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
+        <div class="mat-elevation-z8" style="overflow: auto;">
+            <table mat-table [dataSource]="dataSource" class="table-admin">
 
               <div>
 
@@ -149,6 +78,7 @@
               </button>
 
               <button
+
                 mat-raised-button
                 class="action-btn"
                 style="width: 100px;"
@@ -180,7 +110,7 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-            <mat-paginator    [length]="totalRecords"  [pageSize]="pageSize" [pageIndex]="pageIndex"
+            <mat-paginator  class="table-admin-h"   [length]="totalRecords"  [pageSize]="pageSize" [pageIndex]="pageIndex"
 
                            [length]="totalRecords"
                            aria-label="Select page of periodic elements" (page)="onPageChange($event)">
