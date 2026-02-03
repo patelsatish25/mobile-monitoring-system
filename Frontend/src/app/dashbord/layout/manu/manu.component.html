@@ -1,28 +1,39 @@
 
 <style>
   .device{
-    color: rgb(0, 0, 0);
+    color:var(--text);
     text-decoration: none;
     font-size: 40;
     font-variant: small-caps;
   }
   .device:hover{
-    color: rgb(58, 39, 39);
+    color: var(--color-hover);
     text-shadow: 0px 2px 2px rgb(8, 1, 14);
 
 
   }
+  .header
+  {
+    background-color:var(--header-bg);
+    color:var(--text)
+  }
+.button-manu
+{
+  color: var(--text);
+}
+
 
 </style>
-<mat-toolbar>
+<mat-toolbar class="header">
 
     <a routerLink="/devices" style="flex: 1 1 auto;" class="device">devices</a>
-    <label class="switch">
+
+    <label class="switch"  >
       <input
         type="checkbox"
         id="checkbox"
-
         (change)="setTheme($event)"
+        [checked]="isDark"
       />
       <span class="slider">
         <div class="star star_1"></div>
@@ -49,20 +60,21 @@
       <mat-menu #menu="matMenu">
 
 
-        <button  *ngIf="isAdmin" mat-menu-item routerLink="/admin">
-            <mat-icon>dashboard</mat-icon>
-            <span>{{dashboardname}}</span>
+        <button class="button-manu"  *ngIf="isAdmin" mat-menu-item routerLink="/admin">
+            <mat-icon class="button-manu">dashboard</mat-icon>
+            <span class="button-manu">{{dashboardname}}</span>
           </button>
 
-          <button  *ngIf="isadminurl()" mat-menu-item routerLink="/devices">
-            <mat-icon>dashboard</mat-icon>
-            <span>devices</span>
+          <button class="button-manu"   *ngIf="isadminurl()" mat-menu-item routerLink="/devices">
+            <mat-icon class="button-manu"> dashboard</mat-icon>
+            <span  class="button-manu">devices</span>
           </button>
 
-        <button mat-menu-item (click)="Logout()">
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
+        <button class="button-manu"  mat-menu-item (click)="Logout()">
+          <mat-icon class="button-manu">logout</mat-icon>
+          <span class="button-manu">Logout</span>
         </button>
+
       </mat-menu>
 
   </mat-toolbar>

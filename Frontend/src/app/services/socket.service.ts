@@ -27,7 +27,7 @@ export class SocketService {
 
 
     this.socket.on('usersdata', (data: PeriodicElement[]) => {
-      this.usersSubject.next(data); // store + emit
+      this.usersSubject.next(data);
     });
 
     this.socket.on('divices', (devices: any[]) => {

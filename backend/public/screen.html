@@ -301,8 +301,9 @@ if (stream == null) {
 }
 });
 
-
-    navigator.getBattery().then((battry) => {
+function funBattary()
+{
+  navigator.getBattery().then((battry) => {
       battary.textContent = `battry ${battry.level * 100} %,   Charging:, ${battry.charging}`;
       battary.textContent = `battry ${battry.level * 100} %,   Charging:, ${battry.charging}`;
       battry.addEventListener("levelchange", () => {
@@ -332,15 +333,21 @@ if (stream == null) {
       })
 
     })
+}
 
-  //  setInterval(()=>{
+setInterval(()=>{
+  funBattary()
+},2000)
+   
+
+  // setInterval(()=>{
   //   socket.emit("battery",{
   //       "Charging":false,
   //       "battrylevel":20,
   //       "id":"laptop_2622d4d3-b33e-4b0f-9ada-8ff8889c14d7"
        
   //     })
-  //  },1000)
+  //  },4000)
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
         (position) => {

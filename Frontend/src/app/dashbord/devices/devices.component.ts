@@ -29,7 +29,7 @@ export class DevicesComponent {
     }
   ngOnInit()
   {
-
+      console.log('theme')
 
    this.token=localStorage.getItem('token');
 

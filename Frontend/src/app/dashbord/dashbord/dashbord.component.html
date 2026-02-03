@@ -109,7 +109,26 @@
 .graphchart{
   width:100%;height:500px;
 }
-
+.contener{
+  background-color:var(--component);
+}
+.about .content-wrapper .details-grid .detail-item
+{
+  background-color:var(--card-bg);
+  color: var(--text);
+}
+.about .content-wrapper .details-grid .detail-item .detail-content span
+{
+  color: var(--text);
+}
+.cards
+{
+  color: var(--text);
+}
+.div-internet
+{
+  color: var(--text);
+}
   </style>
 
 
@@ -125,18 +144,18 @@
   <div class="main about section" style="padding:10px;  ">
     <div style="padding:0px;margin-left:2px;margin-right:2px; width:100%;"  >
 
-      <div class="profile-card" style="width:100%;margin:0px;">
+      <div class="profile-card contener" style="width:100%;margin:0px;">
 
         <div class="content-wrapper">
 
 
           <div class="details-grid " style="grid-template-columns: repeat(3, 1fr);">
-            <div class="detail-item compponet" style="justify-content: center;display: flex; background-color: rgb(71, 71, 71);padding-top: 20px;">
+            <div class=" detail-item  " style="justify-content: center;display: flex; ;padding-top: 20px;">
 
 
-              <div class="detail-content">
+              <div class="detail-content cards">
 
-                <span style="text-align: center;font-size:large;">battery</span>
+                <span style="text-align: center;font-size:large;" class="cards">battery</span>
 
                 <div style="width:300px; height: 300px;padding-top:90px;">
                 <div class="progress" style="width:300px;height:100px;">
@@ -154,8 +173,8 @@
 
                 </div>
 
-                <strong id="battary" style="padding:10px;padding-top:20px;">
-                  <ul>
+                <strong id="battary"   style="padding:10px;padding-top:20px;">
+                  <ul class="cards">
                     <li>battery : {{battery.per}}%</li>
                     <li>Charging : {{battery.Charging}}</li>
                   </ul>
@@ -163,19 +182,19 @@
               </div>
               </div>
             </div>
-            <div class="detail-item" style="justify-content: center;display: flex;background-color: rgb(71, 71, 71);" >
+            <div class="detail-item cards" style="justify-content: center;display: flex;" >
 
               <div class="detail-content" >
                  <span style="text-align: center;font-size:large;">download Speed (Mbps)</span>
                 <div #chartContainer style="width: 300px; height: 300px;"></div>
               </div>
             </div>
-            <div class="detail-item" data-aos-delay="150" style="justify-content: center;display: block;background-color: rgb(71, 71, 71);">
+            <div class="detail-item cards" data-aos-delay="150" style="justify-content: center;display: block;">
 
 
 
 
-              <div style="text-align: center;font-size:large;color:color(srgb 0.85098 0.85098 0.85098 / 0.6);">INTERNET</div>
+              <div style="text-align: center;font-size:large;" class="div-internet">INTERNET</div>
               <div class="detail-content" style="display: flex;justify-content: center;padding:70px;">
 
                 <div  #net style="height: 200px;width:200px;"></div>
@@ -192,9 +211,7 @@
 
               <div class="detail-item map" data-aos-delay="200" id="maps">
 
-                <!-- <div  class="maps" style="height:400px;width:400px;color: black;border: 1px solid black;">
 
-                  </div> -->
               </div>
 
 
@@ -215,13 +232,13 @@
 
 
             <div class="details-grid" style="width:100%; grid-template-columns: 1fr;  display: grid">
-              <div class="detail-item" data-aos-delay="200" style="background-color: white;">
+              <div class="detail-item" data-aos-delay="200" >
 
                 <div #orientationchartid  style=" width:100%;height:500px;"></div>
               </div>
             </div>
             <div class="details-grid" style="width:100%; grid-template-columns: 1fr;  display: grid">
-              <div class="detail-item" data-aos-delay="200" style="background-color: white;">
+              <div class="detail-item" data-aos-delay="200" >
 
                 <div #MotionchartId  style=" width:100%;height:500px;"></div>
               </div>

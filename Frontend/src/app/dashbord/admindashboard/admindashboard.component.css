@@ -1,0 +1,114 @@
+.main{
+  background-color:var(--bg);
+  padding: 50px;
+  color:azure;
+  height: 90vh;
+}
+.contener{
+  height: 100%;
+  width: 100%;
+  background-color: var(--component);
+
+  border-radius:10px;
+}
+.header
+{
+width:100%;
+height:90px;
+background-color: blueviolet;
+}
+section {
+display: flex;
+align-items: center;
+}
+
+
+.example-label {
+font-size: 14px;
+margin: 0 16px 0 8px;
+min-width: 120px;
+}
+
+.example-button-row {
+max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+}
+.action-btn {
+margin-right: 10px;
+}
+/* btn */
+.btn-approved {
+  background-color:var(--btn-approved-bg) !important;
+  color: #eafff2 !important;
+}
+
+
+.btn-approve {
+
+  background-color: var(--btn-approve) !important;
+  color: #022c22 !important;
+}
+
+
+.btn-rejected {
+  background-color:var(--btn-rejected)!important;
+  color: #ffecec !important;
+}
+
+
+.btn-reject {
+  background-color:var(--btn-reject)!important;
+  color: #2b0404 !important;
+}
+
+.table-admin
+{
+background-color: var(--table-bg);
+color:var(--text);
+
+}
+
+.table-admin-h
+{
+background-color: var(--table-bg-h);
+color:var(--text);
+
+}
+
+.filter
+{
+color: var(--text);
+
+}
+.mat-mdc-table {
+border: 1px solid var(--table-th);
+color: var(--text);
+}
+
+.mat-mdc-header-cell {
+border-color:  var(--table-th);
+border-style: solid;
+color: var(--text);
+}
+
+
+.mat-mdc-cell {
+border-color:var(--table-th);
+border-style: solid;
+color: var(--text);
+}
+.mat-mdc-form-field-infix
+{
+border: 1px solid rgb(255, 255, 255);
+}
+
+

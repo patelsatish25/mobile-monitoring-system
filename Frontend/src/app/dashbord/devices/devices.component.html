@@ -1,9 +1,9 @@
 
 <style>
     .main{
-        background-color: rgb(17, 17, 17);
+        background-color: var(--bg);
         padding: 30px;
-        color:azure;
+        color:var(--text);
         height: 90vh;
         padding-top:10px;
 
@@ -11,11 +11,15 @@
     .contener{
         height: 90%;
         width: 100%;
-        background-color: rgb(40, 40, 40);
+        background-color: var(--component);
 
         border-radius:10px;
         padding:20px;
 
+    }
+    .device-name{
+      color: var(--text);
+      font-size: large;
     }
     .header
     {
@@ -53,8 +57,8 @@
 .device-card {
   padding: 16px;
   border-radius: 8px;
-  background: #2b2b2b;
-  color: white;
+  background:var(--card-bg);
+  color:var(--text);
   transition: 0.3s;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -131,7 +135,7 @@
 
           >
 
-            <h3>{{ d.name }}</h3>
+            <h3 class="device-name">{{ d.name }}</h3>
 
             <p>Status:
               <span *ngIf="isActive(d.deviceId)" style="color:lime">

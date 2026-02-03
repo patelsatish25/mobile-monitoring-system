@@ -1,23 +1,32 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThameService {
 
+  dark=new BehaviorSubject<boolean>(false)
+  isDark$=this.dark.asObservable();
+  isDarkTheme: boolean = false;
+
+
+
   constructor() { }
- private thame=false;
 
 
-   setThame(thame:boolean)
-   {
-    this.thame=thame;
-    if(this.thame)
-    {
-      document.body.classList.add('darkThame')
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+    this.dark.next(this.isDarkTheme)
+    console.log(this.isDarkTheme);
+
+    const body = document.body;
+
+    if (this.isDarkTheme) {
+      body.classList.add('darkTheme');
+    } else {
+      body.classList.remove('darkTheme');
     }
-   }
-
-
-
+  }
 }

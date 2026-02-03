@@ -5,6 +5,7 @@ import * as echarts from 'echarts';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { ThameService } from 'src/app/services/thame.service';
 
 @Component({
   selector: 'app-dashbord',
@@ -27,7 +28,7 @@ opacity: any;
   constructor(
     private socket: SocketService,
     private router: ActivatedRoute,
-
+    private Theme:ThameService
 
   ) { }
 
@@ -243,10 +244,8 @@ opacity: any;
         title: {
           offsetCenter: [0, '-10%'],
           fontSize: 20,
-          color: 'white',
-          textStyle: {
-            color: 'white'
-          }
+
+
         },
         detail: {
           fontSize: 30,
@@ -343,12 +342,52 @@ window.addEventListener('resize',()=>{
 
     this.loadMap();   // create map once
 
+    this.Theme.isDark$.subscribe({
+      next:(data)=>{
+        if(this.Motionchart)
+          {
+            this.Motionchart.dispose();
+
+          }
+          if(this.orientationchart)
+          {
+            this.orientationchart.dispose()
+          }
+          if(this.mychars)
+          {
+            this.mychars.dispose()
+          }
+
+
+          this.mychars.setOption(this.option)
+          let chart = this.chartContainer.nativeElement;
+          let oriention=this.orientchart.nativeElement;
+          let motion=this.motionchartID.nativeElement;
+          if(!data)
+          {
+            this.Motionchart=echarts.init(motion,'dark');
+            this.orientationchart=echarts.init(oriention,'dark');
+            this.mychars = echarts.init(chart,'dark')
+          }else{
+            this.Motionchart=echarts.init(motion);
+            this.orientationchart=echarts.init(oriention);
+            this.mychars = echarts.init(chart)
+          }
+
+          this.Motionchart.setOption(this.motionOption);
+          this.orientationchart.setOption(this.orientionOption);
+          this.mychars.setOption(this.option)
+
+      }
+    })
+
     this.socket.getBattery().subscribe({
       next: (res: any) => {
         this.battery.per = Math.floor(res.battrylevel * 100);
         this.battery.Charging = res.Charging;
       }
     });
+
 
     this.socket.getlocation().subscribe({
       next: (res: any) => {
@@ -604,7 +643,7 @@ window.addEventListener('resize',()=>{
   loadmeter() {
     let chart = this.chartContainer.nativeElement;
 
-    this.mychars = echarts.init(chart)
+    this.mychars = echarts.init(chart,'dark')
 
     this.mychars.setOption(this.option)
 
@@ -651,13 +690,13 @@ window.addEventListener('resize',()=>{
    loadOriention()
    {
     let oriention=this.orientchart.nativeElement;
-     this.orientationchart=echarts.init(oriention);
+     this.orientationchart=echarts.init(oriention,'dark');
      this.orientationchart.setOption(this.orientionOption)
    }
    loadMotion()
    {
     let motion=this.motionchartID.nativeElement;
-    this.Motionchart=echarts.init(motion);
+    this.Motionchart=echarts.init(motion,'dark');
     this.Motionchart.setOption(this.motionOption)
    }
 
