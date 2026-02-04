@@ -11,7 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -29,11 +29,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
    MatSelectModule,
    MatCardModule,
    MatGridListModule,
-  
+   MatDialogModule
 
 
-    
+
   ],
- 
+
 })
 export class MaterialModule { }

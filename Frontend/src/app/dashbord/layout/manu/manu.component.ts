@@ -13,6 +13,7 @@ export class ManuComponent {
   @Input() dashboardname!:string;
   @Input() routerlink!:string;
   @Input() isAdmin!:boolean;
+  @Input() devicename!:string;
    isThame:any=false
    isDark=false
    isdevicessurl():boolean
