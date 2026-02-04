@@ -91,3 +91,6 @@
 .switch input:checked ~ .slider .cloud {
   opacity: 1;
 }
+.d-btn{
+    margin-right: 8px;
+}

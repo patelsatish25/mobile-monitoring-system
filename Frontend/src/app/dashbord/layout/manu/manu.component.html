@@ -21,13 +21,21 @@
 {
   color: var(--text);
 }
+.d-name
+{
+  color:var(--text);
+    text-decoration: none;
+    font-size: 40;
+    font-variant: small-caps;
+    margin-top:15px;
+}
 
 
 </style>
 <mat-toolbar class="header">
 
-    <a routerLink="/devices" style="flex: 1 1 auto;" class="device">devices</a>
-
+    <a routerLink="/devices"  class="device" style="margin-right:10px;">devices</a>
+     <h1 style="flex: 1 1 auto;" class="d-name">{{devicename}} </h1>
     <label class="switch"  >
       <input
         type="checkbox"
@@ -76,5 +84,6 @@
         </button>
 
       </mat-menu>
+
 
   </mat-toolbar>

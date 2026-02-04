@@ -14,8 +14,9 @@ export class DevicesComponent {
   apiDevices: any[] = [];
   socketDevices: any[] = [];
   hide=false;
+  
   constructor(private socket : SocketService,private api:BackendapiService,private router:Router) {}
-
+  
 
      alertmsg=""
 

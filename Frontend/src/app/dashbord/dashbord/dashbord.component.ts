@@ -6,6 +6,7 @@ import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { ThameService } from 'src/app/services/thame.service';
+import { BackendapiService } from 'src/app/services/backendapi.service';
 
 @Component({
   selector: 'app-dashbord',
@@ -19,6 +20,7 @@ export class DashbordComponent implements OnInit {
   @ViewChild('net',{static:false})netcontener!:ElementRef;
    @ViewChild('orientationchartid',{static:false})orientchart!:ElementRef;
    @ViewChild('MotionchartId',{static:false})motionchartID!:ElementRef;
+
   private mychars!: echarts.ECharts;
   private netbar!:echarts.ECharts;
   private orientationchart!:echarts.ECharts;
@@ -28,11 +30,12 @@ opacity: any;
   constructor(
     private socket: SocketService,
     private router: ActivatedRoute,
-    private Theme:ThameService
+    private Theme:ThameService,
+    private Api:BackendapiService
 
   ) { }
 
-
+  deviceName="";
   batterycolor="rgb(228, 100, 100);"
 
    originatindata:any= {
@@ -336,11 +339,19 @@ window.addEventListener('resize',()=>{
    }
 
     const id: any = this.router.snapshot.paramMap.get('id');
-
-
+   
+    this.Api.getdevices().subscribe({
+      next:(res:any)=>{
+        console.log(res.devices)
+        console.log(id)
+       let d:any=  res.devices.filter((i:any)=>i.deviceId ===id)
+       this.deviceName=d[0].name
+      }
+    })
+    
     this.socket.connectDevice(id);
 
-    this.loadMap();   // create map once
+    this.loadMap();   
 
     this.Theme.isDark$.subscribe({
       next:(data)=>{

@@ -129,6 +129,14 @@
 {
   color: var(--text);
 }
+.d-name
+{
+  color: var(--text);
+  border-radius: 10px ;
+  height: 50px;
+  padding-top: 10px;
+  background-color:var(--card-bg);
+}
   </style>
 
 
@@ -136,16 +144,17 @@
 
 <header id="header" class="header align-items-center " style="padding-top:0px;display:block;width:100%;">
 
-  <app-menu  [dashboardname]="dashboardname" [isAdmin]="isAdmin" routerlink="routerlink"></app-menu>
+  <app-menu  [dashboardname]="dashboardname" [isAdmin]="isAdmin" [devicename]="deviceName" routerlink="routerlink"></app-menu>
 </header>
 
 
 
   <div class="main about section" style="padding:10px;  ">
+  
     <div style="padding:0px;margin-left:2px;margin-right:2px; width:100%;"  >
 
-      <div class="profile-card contener" style="width:100%;margin:0px;">
-
+      <div class="profile-card contener" style="width:100%;margin:0px;padding-top:10px;">
+        <h1 style="text-align: center;" class="d-name">{{deviceName}}</h1>
         <div class="content-wrapper">
 
 
